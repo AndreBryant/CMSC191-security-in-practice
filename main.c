@@ -6,16 +6,20 @@
 
 int main(int argc, char *argv[]) {
 
+    int page = 3;
     char *passwords[SIZE];
-    get_all_passwords(passwords, SIZE);
+    get_all_passwords(passwords, SIZE, page);
 
-    for (int i = 0; i < SIZE; i++) {
+    int i = 0;
+    while(1){
         printf("%s\n", passwords[i]);
-        free(passwords[i]);
 
         if (passwords[i+1] == NULL) {
             break;
         }
+        i++;
     }
+
+    free_all_passwords(passwords, SIZE);
     return 0;
 }

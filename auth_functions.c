@@ -1,9 +1,14 @@
+#define ENTRIES_PER_PAGE 10
+
 #include "auth_functions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void get_all_passwords(char *arr[], int size) {
+void get_all_passwords(char *arr[], int size, int page) {
+    // idk maybe free everything in the array first
+    free_all_passwords(arr, size);
+
     FILE *fp = fopen("./db/passwords.txt", "r");
 
     if (fp == NULL) {
@@ -13,7 +18,14 @@ void get_all_passwords(char *arr[], int size) {
 
     char line[1024];
     int i = 0;
+    int skipped_data_count = (page - 1) * ENTRIES_PER_PAGE;
 
+    // Skip the first skipped_data_count lines (for pagination)
+    for (int j = 0; j < skipped_data_count; j++) {
+        fgets(line, sizeof(line), fp);
+    }
+
+    // Record the Data here
     while (i < size && fgets(line, sizeof(line), fp)) {
         arr[i] = malloc(strlen(line) + 1);
         if (arr[i] != NULL) {
@@ -25,4 +37,10 @@ void get_all_passwords(char *arr[], int size) {
     }
 
     fclose(fp);
+}
+
+void free_all_passwords(char *arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        free(arr[i]);
+    }
 }
