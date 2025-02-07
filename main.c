@@ -1,4 +1,4 @@
-#define SIZE 10
+#define ARR_SIZE 10
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,20 +6,16 @@
 
 int main(int argc, char *argv[]) {
 
-    int page = 3;
-    char *passwords[SIZE];
-    get_all_passwords(passwords, SIZE, page);
+    int page = 4;
+    char *passwords[ARR_SIZE];
+    get_all_passwords(passwords, ARR_SIZE, page);
 
     int i = 0;
-    while(1){
+    while (i < ARR_SIZE && passwords[i] != NULL) {
         printf("%s\n", passwords[i]);
-
-        if (passwords[i+1] == NULL) {
-            break;
-        }
         i++;
     }
 
-    free_all_passwords(passwords, SIZE);
+    free_all_passwords(passwords, ARR_SIZE);
     return 0;
 }

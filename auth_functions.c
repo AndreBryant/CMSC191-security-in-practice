@@ -22,11 +22,17 @@ void get_all_passwords(char *arr[], int size, int page) {
 
     // Skip the first skipped_data_count lines (for pagination)
     for (int j = 0; j < skipped_data_count; j++) {
-        fgets(line, sizeof(line), fp);
+        if (fgets(line, sizeof(line), fp) == NULL) {
+            printf("Reached the end of the file before the desired page.\n");
+            fclose(fp);
+            return;
+        }
     }
 
     // Record the Data here
     while (i < size && fgets(line, sizeof(line), fp)) {
+        line[strcspn(line, "\n")] = '\0';
+
         arr[i] = malloc(strlen(line) + 1);
         if (arr[i] != NULL) {
             strcpy(arr[i], line);
