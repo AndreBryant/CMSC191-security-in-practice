@@ -1,38 +1,44 @@
-#define ARR_SIZE 100
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "src/auth_functions.h"
 
 int main(int argc, char *argv[]) {
 
-    int page = 0;
-    Entry *passwords[ARR_SIZE] = {NULL};
-    Entry *usernames[ARR_SIZE] = {NULL};
-
-    get_all_entries(passwords, ARR_SIZE, page, "passwords");
-    get_all_entries(usernames, ARR_SIZE, page, "usernames");
-
+    // system("clear");
     char *username = "Andre0";
     char *password = "pw0";
-    int is_logged_in = 0;
+    int authentication_stage = 0;
+    int auth_loop = 1;
 
-    login(usernames, passwords, username, password, &is_logged_in);
+    while (auth_loop) {
+        switch (authentication_stage) {
+            case 0:
+                printf("User not logged in.\n");
+                printf("Press any key to continue...\n");
+                getchar();
+                login(username, password, &authentication_stage);
+                break;
 
-    switch (is_logged_in) {
-        case 0:
-            printf("Login failed.\n");
-            break;
+            case 1:
+                printf("Password matches with username! Now checking security questions\n");
+                printf("Press any key to continue...\n");
+                getchar();
+                auth_loop = 0;
+                // char *answer = "1827366485";
+                // security_question(username, password, answer,&authentication_stage);
+                break;
 
-        case 1:
-            printf("Login successful!\n");
-            break;
+            case 2:
+                printf("User Logged in Successfully! >.<\n");
+                printf("Press any key to continue...\n");
+                getchar();
+                auth_loop = 0;
+                break;
 
-        default:
-            break;
+            default:
+                break;
+        }
     }
 
-    free_all_entries(usernames, ARR_SIZE);
-    free_all_entries(passwords, ARR_SIZE);
     return 0;
 }

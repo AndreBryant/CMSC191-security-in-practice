@@ -1,0 +1,10 @@
+id:0;data:{question:Give me your credit card details, please >.<?|answer:1827366485|};
+id:1;data:{question:When is your birthday?|answer:October 8, 2002|};
+id:2;data:{question:What is your student number in UP?|answer:2021-12345|};
+id:3;data:{question:What is your SAIS ID?|answer:192837|};
+id:4;data:{question:What is your favorite anime?|answer:Jujutsu Kaisen|};
+id:5;data:{question:Who is your favorite composer?|answer:Beethoven|};
+id:6;data:{question:Who is your 2nd favorite composer?|answer:Chopin|};
+id:7;data:{question:Who is the person you do not like the most?|answer:rjyren|};
+id:8;data:{question:What is your favorite game?|answer:Terraria|};
+id:9;data:{question:What is your degree program?|answer:BS Computer Seinen|};
