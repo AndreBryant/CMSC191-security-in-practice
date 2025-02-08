@@ -1,3 +1,4 @@
 /main.o
 /auth_simulation
 /*.o
+/src/*.o

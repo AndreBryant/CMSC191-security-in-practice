@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "auth_functions.h"
+#include "src/auth_functions.h"
 
 int main(int argc, char *argv[]) {
 
@@ -16,7 +16,6 @@ int main(int argc, char *argv[]) {
     int i = 0;
     while (i < ARR_SIZE && passwords[i] != NULL) {
         printf("ID: %d Username: %s, Password: %s\n", i, usernames[i]->data, passwords[i]->data);
-
         i++;
     }
 

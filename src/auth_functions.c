@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+void free_all_entries(Entry *arr[], int size);
 int parse_password(Entry *entry, char *line);
 int parse_username(Entry *entry, char *line);
 
