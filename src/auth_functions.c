@@ -6,8 +6,28 @@
 #include <string.h>
 
 void free_all_entries(Entry *arr[], int size);
-int parse_password(Entry *entry, char *line);
-int parse_username(Entry *entry, char *line);
+int _parse_password(Entry *entry, char *line);
+int _parse_username(Entry *entry, char *line);
+
+int login(Entry *usernames[], Entry *passwords[], char* username, char* password) {
+    int username_id = -1; // i think usernames should be unique
+
+    // find username_id
+    int i = 0;
+    while (usernames[i] != NULL) {
+        if (!strcmp(usernames[i]->data, username)) {
+            username_id = atoi(usernames[i]->id);
+            break;
+        }
+        i++;
+    }
+
+    if (!strcmp(passwords[username_id]->data, password)) {
+        return 1;
+    }
+
+    return 0;
+}
 
 void get_all_entries(Entry *arr[], int size, int page, const char *table_name) {
     // idk maybe free everything in the array first
@@ -25,8 +45,8 @@ void get_all_entries(Entry *arr[], int size, int page, const char *table_name) {
     char line[1024];
     int entries_read = 0;
     if (page > 0) {
-        int start_entry = (page - 1) * ENTRIES_PER_PAGE;
         // for pagination (skip data until start_entry)
+        int start_entry = (page - 1) * ENTRIES_PER_PAGE;
         for (int j = 0; j < start_entry; j++) {
             if (fgets(line, sizeof(line), fp) == NULL) {
                 printf("Reached the end of the file before the desired page.\n");
@@ -41,10 +61,6 @@ void get_all_entries(Entry *arr[], int size, int page, const char *table_name) {
         line[strcspn(line, "\n")] = '\0';
 
         arr[entries_read] = malloc(sizeof(Entry));
-        if (arr[entries_read] == NULL) {
-            printf("Memory allocation failed for password %d\n", entries_read);
-            continue;
-        }
 
         if (arr[entries_read] == NULL) {
             printf("Memory allocation failed for entry %d\n", entries_read);
@@ -52,12 +68,12 @@ void get_all_entries(Entry *arr[], int size, int page, const char *table_name) {
         }
 
         if (!strcmp(table_name, "passwords")) {
-            if (!parse_password(arr[entries_read], line)) {
+            if (!_parse_password(arr[entries_read], line)) {
                 free(arr[entries_read]);
                 arr[entries_read] = NULL;
             }
         } else if (!strcmp(table_name, "usernames")) {
-            if (!parse_username(arr[entries_read], line)) {
+            if (!_parse_username(arr[entries_read], line)) {
                 free(arr[entries_read]);
                 arr[entries_read] = NULL;
             }
@@ -79,7 +95,7 @@ void free_all_entries(Entry *arr[], int size) {
     }
 }
 
-int parse_password(Entry *entry, char *line) {
+int _parse_password(Entry *entry, char *line) {
     char *id_part = strtok(line, ";");
     // i didnt know until now
     // strtok(NULL, dlm) should continue from the last string passed to it
@@ -95,7 +111,7 @@ int parse_password(Entry *entry, char *line) {
     }
 }
 
-int parse_username(Entry *entry, char *line) {
+int _parse_username(Entry *entry, char *line) {
     char *id_part = strtok(line, ";");
     char *data_part = strtok(NULL, ";");
 
