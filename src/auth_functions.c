@@ -9,7 +9,7 @@ void free_all_entries(Entry *arr[], int size);
 int _parse_password(Entry *entry, char *line);
 int _parse_username(Entry *entry, char *line);
 
-int login(Entry *usernames[], Entry *passwords[], char* username, char* password) {
+void login(Entry *usernames[], Entry *passwords[], char *username, char *password, int *is_logged_in) {
     int username_id = -1; // i think usernames should be unique
 
     // find username_id
@@ -23,17 +23,15 @@ int login(Entry *usernames[], Entry *passwords[], char* username, char* password
     }
 
     if (!strcmp(passwords[username_id]->data, password)) {
-        return 1;
+        *is_logged_in = 1;
     }
-
-    return 0;
 }
 
 void get_all_entries(Entry *arr[], int size, int page, const char *table_name) {
     // idk maybe free everything in the array first
     free_all_entries(arr, size);
 
-    char filename[256];
+    char filename[128];
     snprintf(filename, sizeof(filename), "./db/%s.txt", table_name);
     FILE *fp = fopen(filename, "r");
 
@@ -83,6 +81,14 @@ void get_all_entries(Entry *arr[], int size, int page, const char *table_name) {
     }
 
     fclose(fp);
+}
+
+void print_all_entries(Entry *arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] != NULL) {
+            printf("ID: %s, Data: %s\n", arr[i]->id, arr[i]->data);
+        }
+    }
 }
 
 void free_all_entries(Entry *arr[], int size) {
