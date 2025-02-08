@@ -1,6 +1,12 @@
 #ifndef AUTH_FUNCTIONS_H
 #define AUTH_FUNCTIONS_H
 
-void get_all_passwords(char *arr[], int size, int page) ;
-void free_all_passwords(char *arr[], int size) ;
+typedef struct {
+    char *id, *data;
+} Entry;
+
+void get_all_entries(Entry *arr[], int size, int page, const char *table_name) ;
+void free_all_entries(Entry *arr[], int size) ;
+
+
 #endif
