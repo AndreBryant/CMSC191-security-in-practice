@@ -1,6 +1,6 @@
 CC = gcc               # The compiler to use
 CFLAGS = -Wall -g -I./src   # Compiler flags for warnings, debugging info, and include path
-SRC = main.c src/auth_functions.c   # Source files
+SRC = main.c src/auth_functions.c src/auth_utils.c  # Source files
 OBJ = $(SRC:.c=.o)     # Object files (compile all .c files into .o files)
 EXEC = auth_simulation # The final executable name
 

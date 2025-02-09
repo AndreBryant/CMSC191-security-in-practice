@@ -5,9 +5,12 @@
 int main(int argc, char *argv[]) {
 
     // system("clear");
-    char *username = "Andre0";
-    char *password = "pw0";
+    char *username = "Andre3";
+    char *password = "pw3";
+    char *answer = "1827366485";
+
     int authentication_stage = 0;
+    int user_index = -1;
     int auth_loop = 1;
 
     while (auth_loop) {
@@ -16,16 +19,15 @@ int main(int argc, char *argv[]) {
                 printf("User not logged in.\n");
                 printf("Press any key to continue...\n");
                 getchar();
-                login(username, password, &authentication_stage);
+                login(username, password, &authentication_stage, &user_index);
                 break;
 
             case 1:
                 printf("Password matches with username! Now checking security questions\n");
                 printf("Press any key to continue...\n");
                 getchar();
+                security_question(&authentication_stage, &user_index);
                 auth_loop = 0;
-                // char *answer = "1827366485";
-                // security_question(username, password, answer,&authentication_stage);
                 break;
 
             case 2:
