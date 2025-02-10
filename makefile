@@ -1,5 +1,6 @@
 CC = gcc               # The compiler to use
-CFLAGS = -Wall -g -I./src   # Compiler flags for warnings, debugging info, and include path
+CFLAGS = -Wall -g -I./src -m64  # Compiler flags for warnings, debugging info, and include path
+LDFLAGS = -lc -m64        # Linker flags
 SRC = main.c src/auth_functions.c src/auth_utils.c  # Source files
 OBJ = $(SRC:.c=.o)     # Object files (compile all .c files into .o files)
 EXEC = auth_simulation # The final executable name
@@ -9,7 +10,7 @@ all: $(EXEC)
 
 # Rule to build the executable
 $(EXEC): $(OBJ)
-	$(CC) $(OBJ) -o $(EXEC)
+	$(CC) $(OBJ) -o $(EXEC) $(LDFLAGS)
 
 # Rule to compile .c files into .o files
 # Adjusted to handle .o files inside src/

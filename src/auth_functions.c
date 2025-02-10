@@ -61,8 +61,18 @@ void security_question(int *auth_stage, int *user_index) {
     ComplexEntry *security_questions[ARR_SIZE] = {NULL};
     _get_all_complex_entries(security_questions, 0, 0, "security_questions");
 
-    printf("Security Question: %s\n", security_questions[*user_index]->data->question);
-    printf("Answer: %s\n", security_questions[*user_index]->data->answer);
-    (*auth_stage)++;
+    // printf("Answer: %s\n", security_questions[*user_index]->data->answer);
+
+    while(1) {
+        char answer[MAX_INPUT];
+        printf("Security Question: %s", security_questions[*user_index]->data->question);
+        scanf("%127s", answer);
+        if (!strcmp(answer, security_questions[*user_index]->data->answer)) {
+            (*auth_stage)++;
+            break;
+        } else {
+            printf("Incorrect answer, please try again.\n");
+        }
+    }
     _free_all_complex_entries(security_questions);
 }

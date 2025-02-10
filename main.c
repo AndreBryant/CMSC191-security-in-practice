@@ -21,10 +21,18 @@ int main(int argc, char *argv[]) {
                 break;
 
             case 2:
+                char input[1];
+
                 printf("User Logged in Successfully! >.<\n");
-                printf("Press any key to continue...\n");
-                getchar();
-                auth_loop = 0;
+                printf("Press any [c] to continue or [b] to exit...\n");
+                scanf("%s", input);
+
+                if (input[0] == 'c') {
+                    auth_loop = 1;
+                } else if (input[0] == 'b') {
+                    auth_loop = 0;
+                }
+
                 break;
 
             default:
