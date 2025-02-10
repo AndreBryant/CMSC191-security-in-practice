@@ -12,24 +12,28 @@ void login(int *auth_stage, int *user_index) {
 
     Entry *usernames[ARR_SIZE] = {NULL};
     _get_all_entries(usernames, 0, 0,"usernames");
-
-    printf("Please enter your username: ");
-    scanf("%127s", username);
-
     int username_index = -1;
-    int i = 0;
-    while (usernames[i] != NULL) {
-        if (!strcmp(usernames[i]->data, username)) {
-            username_index = atoi(usernames[i]->id);
+
+    while(1) {
+        printf("Please enter your username: ");
+        scanf("%127s", username);
+
+        username_index = -1;
+
+        int i = 0;
+        while (usernames[i] != NULL) {
+            if (!strcmp(usernames[i]->data, username)) {
+                username_index = atoi(usernames[i]->id);
+                break;
+            }
+            i++;
+        }
+
+        if (username_index != -1) {
             break;
         }
-        i++;
-    }
 
-    if (username_index == -1) {
-        printf("Username not found.\n");
-        _free_all_entries(usernames);
-        return;
+        printf("Username not found. Try Again.\n");
     }
 
     Entry *passwords[ARR_SIZE] = {NULL};
