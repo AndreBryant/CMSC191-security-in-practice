@@ -1,7 +1,8 @@
 #ifndef AUTH_FUNCTIONS_H
 #define AUTH_FUNCTIONS_H
+#define MAX_INPUT 128
 
-void login(char* username, char* password, int *auth_stage, int *user_index) ;
+void login(int *auth_stage, int *user_index) ;
 void security_question(int *auth_stage, int *user_index) ;
 
 #endif
