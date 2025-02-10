@@ -6,32 +6,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-void login(int *auth_stage, int *user_index) {
+void login(int *auth_stage, int *user_id) {
     char username[MAX_INPUT];
     char password[MAX_INPUT];
+    int username_id = -1;
 
     Entry *usernames[ARR_SIZE] = {NULL};
     _get_all_entries(usernames, 0, 0,"usernames");
-    int username_index = -1;
 
     while(1) {
         printf("Please enter your username: ");
         fgets(username, MAX_INPUT, stdin);
         _remove_newline(username);
 
-        username_index = -1;
+        username_id = -1;
 
         int i = 0;
         while (usernames[i] != NULL) {
             if (!strcmp(usernames[i]->data, username)) {
-                // username_index = atoi(usernames[i]->id);
-                username_index = i; // idk but i put the index here instead of the id.
+                username_id = atoi(usernames[i]->id);
                 break;
             }
             i++;
         }
 
-        if (username_index != -1) {
+        if (username_id != -1) {
             break;
         }
 
@@ -41,19 +40,26 @@ void login(int *auth_stage, int *user_index) {
     Entry *passwords[ARR_SIZE] = {NULL};
     _get_all_entries(passwords, 0, 0, "passwords");
 
-    while(1) {
+    int found = 0;
+    while(!found) {
+
         printf("Please enter your password: ");
         fgets(password, MAX_INPUT, stdin);
         _remove_newline(password);
 
-        if (!strcmp(passwords[username_index]->data, password) && !strcmp(passwords[username_index]->id, usernames[username_index]->id)) {
-            (*auth_stage)++; // Next stage
-            (*user_index) = username_index;
-            printf("Login Successful!\n");
-            break;
-        } else {
-            printf("Incorrect password.Try Again.\n");
+        int i = 0;
+        while(passwords[i] != NULL) {
+            if (atoi(passwords[i]->id) == username_id && !strcmp(passwords[i]->data, password)) {
+                found = 1;
+                (*auth_stage)++; // Next stage
+                (*user_id) = username_id;
+                printf("Login Successful!\n");
+                break;
+            }
+            i++;
         }
+
+        printf("Incorrect Password. Please try again.\n");
     }
 
     _free_all_entries(usernames);
@@ -61,22 +67,27 @@ void login(int *auth_stage, int *user_index) {
 }
 
 void security_question(int *auth_stage, int *user_index) {
+    char answer[MAX_INPUT];
+
     ComplexEntry *security_questions[ARR_SIZE] = {NULL};
     _get_all_complex_entries(security_questions, 0, 0, "security_questions");
 
-    while(1) {
-        char answer[MAX_INPUT];
+    int found = 0;
+    while(!found) {
 
         printf("To verify further, please answer the following security question:\n");
         printf("%s ", security_questions[*user_index]->data->question);
         fgets(answer, MAX_INPUT, stdin);
         _remove_newline(answer);
 
-        if (!strcmp(answer, security_questions[*user_index]->data->answer)) {
-            (*auth_stage)++;
-            break;
-        } else {
-            printf("Incorrect answer, please try again.\n");
+        int i = 0;
+        while(security_questions[i] != NULL) {
+            if (atoi(security_questions[i]->id) == *user_index && !strcmp(security_questions[i]->data->answer, answer)) {
+                found = 1;
+                (*auth_stage)++; // Next stage
+                break;
+            }
+            i++;
         }
     }
     _free_all_complex_entries(security_questions);

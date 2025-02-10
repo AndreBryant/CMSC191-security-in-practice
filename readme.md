@@ -31,3 +31,9 @@ There is NO WARRANTY, to the extent permitted by law.
 ```
 make run
 ```
+
+Make might show some warning about Clock skew detected. I don't know how to deal with it, but based on my observations, it shouldn't affect the code (i think).
+
+```
+make: warning:  Clock skew detected.  Your build may be incomplete.
+```
