@@ -214,3 +214,10 @@ void _free_all_complex_entries(ComplexEntry *arr[]) {
         }
     }
 }
+
+void remove_newline(char *str) {
+    size_t len = strlen(str);
+    if (len > 0 && str[len - 1] == '\n') {
+        str[len - 1] = '\0';
+    }
+}

@@ -1,4 +1,4 @@
-id:0;data:{question:Give me your credit card details, please >.<?|answer:1827366485|};
+id:0;data:{question:CAPTCHA draw a fish, please >.<?|answer:<><|};
 id:1;data:{question:When is your birthday?|answer:October 8, 2002|};
 id:2;data:{question:What is your student number in UP?|answer:2021-12345|};
 id:3;data:{question:What is your SAIS ID?|answer:192837|};

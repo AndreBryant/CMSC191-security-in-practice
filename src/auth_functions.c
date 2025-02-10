@@ -16,7 +16,9 @@ void login(int *auth_stage, int *user_index) {
 
     while(1) {
         printf("Please enter your username: ");
-        scanf("%127s", username);
+        // scanf("%127s", username);
+        fgets(username, MAX_INPUT, stdin);
+        remove_newline(username);
 
         username_index = -1;
 
@@ -41,7 +43,9 @@ void login(int *auth_stage, int *user_index) {
 
     while(1) {
         printf("Please enter your password: ");
-        scanf("%127s", password);
+        // scanf("%127s", password);
+        fgets(password, MAX_INPUT, stdin);
+        remove_newline(password);
 
         if (!strcmp(passwords[username_index]->data, password) && !strcmp(passwords[username_index]->id, usernames[username_index]->id)) {
             (*auth_stage)++; // Next stage
@@ -61,12 +65,13 @@ void security_question(int *auth_stage, int *user_index) {
     ComplexEntry *security_questions[ARR_SIZE] = {NULL};
     _get_all_complex_entries(security_questions, 0, 0, "security_questions");
 
-    // printf("Answer: %s\n", security_questions[*user_index]->data->answer);
-
     while(1) {
         char answer[MAX_INPUT];
-        printf("Security Question: %s", security_questions[*user_index]->data->question);
+
+        printf("To verify further, please answer the following security question:\n");
+        printf("%s ", security_questions[*user_index]->data->question);
         scanf("%127s", answer);
+
         if (!strcmp(answer, security_questions[*user_index]->data->answer)) {
             (*auth_stage)++;
             break;

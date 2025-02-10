@@ -15,14 +15,15 @@ int main(int argc, char *argv[]) {
                 login(&authentication_stage, &user_index);
                 break;
 
-                case 1:
+            case 1:
                 system("clear");
                 security_question(&authentication_stage, &user_index);
                 break;
 
             case 2:
-                char input[1];
+                system("clear");
 
+                char input[1];
                 printf("User Logged in Successfully! >.<\n");
                 printf("Press any [c] to continue or [b] to exit...\n");
                 scanf("%s", input);
