@@ -2,7 +2,7 @@
 #define AUTH_UTILS_H
 #include "auth_structs.h"
 
-void remove_newline(char *str) ;
+void _remove_newline(char *str) ;
 void _free_all_entries(Entry *arr[]) ;
 void _free_all_complex_entries(ComplexEntry *arr[]) ;
 int _parse_entry(Entry *entry, char *line) ;

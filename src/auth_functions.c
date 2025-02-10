@@ -16,16 +16,16 @@ void login(int *auth_stage, int *user_index) {
 
     while(1) {
         printf("Please enter your username: ");
-        // scanf("%127s", username);
         fgets(username, MAX_INPUT, stdin);
-        remove_newline(username);
+        _remove_newline(username);
 
         username_index = -1;
 
         int i = 0;
         while (usernames[i] != NULL) {
             if (!strcmp(usernames[i]->data, username)) {
-                username_index = atoi(usernames[i]->id);
+                // username_index = atoi(usernames[i]->id);
+                username_index = i; // idk but i put the index here instead of the id.
                 break;
             }
             i++;
@@ -43,9 +43,8 @@ void login(int *auth_stage, int *user_index) {
 
     while(1) {
         printf("Please enter your password: ");
-        // scanf("%127s", password);
         fgets(password, MAX_INPUT, stdin);
-        remove_newline(password);
+        _remove_newline(password);
 
         if (!strcmp(passwords[username_index]->data, password) && !strcmp(passwords[username_index]->id, usernames[username_index]->id)) {
             (*auth_stage)++; // Next stage
@@ -70,7 +69,8 @@ void security_question(int *auth_stage, int *user_index) {
 
         printf("To verify further, please answer the following security question:\n");
         printf("%s ", security_questions[*user_index]->data->question);
-        scanf("%127s", answer);
+        fgets(answer, MAX_INPUT, stdin);
+        _remove_newline(answer);
 
         if (!strcmp(answer, security_questions[*user_index]->data->answer)) {
             (*auth_stage)++;
